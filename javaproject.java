@@ -39,6 +39,7 @@ class javaproject{
         return dic[randomnum];
     } 
     public static void makeblockappear(String[][] grid,Myfunction blockchoisi,HashMap dic){//mettre en argument la grid et la fonction chooseblock
-        //faire apparaitre le block dans la grid
+        blockchoisi(dic);//choisi block
+        
     }
 }
