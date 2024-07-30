@@ -51,8 +51,8 @@ class javaproject{
         }
         return grid
     }
-    public static void Timer(){
-        //créer un timer
+    public static void Time(){
+        Timer timer = new Timer();
     }
     public static void displaygrid(String grid[][]){
         for(int i = 0; i < grid.lenght;i++){
