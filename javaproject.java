@@ -67,7 +67,7 @@ class javaproject{
         }
     }
     public static void updategrid(Myfunction displaygrid,Myfunction asktoplay,String[][]grid){
-        //update la grid et le mouvement des block
+        //update la grid et le mouvement des block et appel la fonction makeblockappear si l'autre est blocker
     }
     public static void checkcollision(String[][] grid){
         //check la colision des block 
@@ -79,5 +79,8 @@ class javaproject{
         if(anwser == "o"){
             timer();
         }
+    }
+    public static void userinput(boolean cangoright,boolean cangoleft,boolean can rotate){
+        //read system input ddes fleche pour rotate c'est la fleche du haut ou du bas 
     }
 }
