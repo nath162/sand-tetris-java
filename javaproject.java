@@ -83,15 +83,16 @@ class javaproject {
     public static void updategrid(String[][] grid) {
         displaygrid(checkcollision(grid));
     }
-
+    //attention a cette fonction
     public static String[][] checkcollision(String[][] grid) {
-        //check la colision des block et trouve nouvelle pos et return la nouvelle grid
+        HashMap<String[][],String[][]> modifiedblock = new HashMap()<>;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; i < grid.length; j++) {
                 if (grid[i][j].equals("+")) {
-                    if (grid[i + 1][j] != "-" && grid[i + 1][j] != "+") {
+                    if (grid[i][j+1] != "-" && grid[i][j+1] != "+" && /* n'est pas dans la hasmap*/) {
+                        modifiedblock.put(String[][] grid[i][j+1],String[][] grid[i][j+1]);
                         grid[i][j] = "*";
-                        grid[i + 1][j] = "+";
+                        grid[i][j+1] = "+";//attention si le block est compose de plusieur etages alors le block ne va pas bien descendre
                     }
                 }
             }
@@ -113,6 +114,42 @@ class javaproject {
     }
 
     public static void userinput(boolean cangoright, boolean cangoleft, boolean canrotate) {
-        //read system input ddes fleche pour rotate c'est la fleche du haut ou du bas 
+        goright = false;
+        rotate = false;
+        goleft = false;
+        Scanner inputu = new Scanner(System.in);
+        if(inputu.equals("d") && cangoright){
+            goright = true;
+        }
+        if(inputu.equals("q")&& cangoleft){
+            goleft = true;
+        }
+        if(inputu.equals("z") || inputu.equals("s") && canrotate){
+            rotate = true;
+        }
+        if(inputu.equals("e")){
+            inuptu.close();//et cree une bool want to play qui sera mit a false   
+        }        
+    }
+    //attention a cette fonction 
+    public static void checkrightandleft(String[][] grid){
+        cangoright = false;
+        cangoleft = false;
+        canrotate = false;
+         for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; i < grid.length; j++) {
+                if (grid[i][j].equals("+")) {
+                    if(grid[i-1][j] != "-" && grid[i-1][j] != "+"){
+                        cangoleft = true;//ca va marcher pour la gauche car la for loop va d'abors s'occuper des premiers elemnt mais pas pour la droite
+                    }
+                    if(grid[-i+1][j] != "-" && grid[-i+1][j] != "+"){
+                        cangoright = true;//les minus sont fait en sorte pour que sa aille de l'autre cote
+                    }//la can rotate method est a faire apre car je ne sais pas comment la fair epour l'instant
+                }
+            }
+        }
+    }
+    public static void movement(String[][] grid,boolean goright,boolean goleft,boolean rotate){
+        //deplacer le block
     }
 }
