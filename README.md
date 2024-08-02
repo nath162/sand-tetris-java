@@ -1,1 +1,1 @@
-projet tetris avec une grille représenter avec des chractéres "+" pour block "-" pour limite "*"pour block libre. le rest des explication a écrire ici
+la v1 est devenue impossible a régler donc je passe a la v2
