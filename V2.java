@@ -1,17 +1,20 @@
 
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 class V2 {
 
     public static void gameloop() {//fonction qui appellra toute les autres fonction
         creategrid();
         while (dowanttoplay()) {//il faut créer c'est bool dans want to play
-            if (isblockblocked());
-            {
-                //makeblockappear(updategrid(), chooseblock(createblockHashMap())); en commentaire car il faut mettre les valeurs demander dans updategrid
-                //posoftheblock(updategrid()); en commentaire car il faut mettre les valeurs demander dans updategrid
-            }
+            //if (isblockblocked());
+            //{
+            //makeblockappear(updategrid(), chooseblock(createblockHashMap())); en commentaire car il faut mettre les valeurs demander dans updategrid
+            //posoftheblock(updategrid()); en commentaire car il faut mettre les valeurs demander dans updategrid
+            //}
+            executeeverysecond();//appel la fonction update grid
         }
     }
 
@@ -62,13 +65,13 @@ class V2 {
         return play;
     }
 
-    public static boolean isblockblocked() {
+    public static boolean isblockblocked(HashMap posoftheblock) {
         boolean blockblocked = false;
-        //faire en sorte de savoir si le block est bloquer
+
         return blockblocked;
     }
 
-    public static String[][] makeblockappear(String[][] grid, String[][] block) {//faut voir mainteanant comment les faires passer en argument
+    public static String[][] makeblockappear(String[][] grid, String[][] block) {
         for (int i = 0; i < block.length; i++) {
             for (int j = 4; j < block[i].length; j++) {
                 grid[i][j] = block[i][j - 4];
@@ -92,4 +95,15 @@ class V2 {
     public static String[][] updategrid(String[][] grid, HashMap posblock) {
         return grid;
     }//fonction qui descend le block fonction timer(chaque seconde) + fonction userinput(bouge le block si user clicker ou le fait rotate)
+
+    public static void executeeverysecond() {
+        Timer timer = new Timer();
+        int start_repeat = 1000;
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                //updategrid(grid, posblock);
+            }
+        }, start_repeat, start_repeat);
+    }
 }
