@@ -68,7 +68,7 @@ class V2 {
 
     public static boolean isblockblocked(HashMap posoftheblock) {//pas fini, mais il faut la fonction pos of the block
         boolean blockblocked = false;
-
+        //savoir si il peut aller en bas a droite ou a gauche
         return blockblocked;
     }
 
@@ -93,7 +93,27 @@ class V2 {
         return posblock; //ne doit etre appeler que a l'apparition du block et puis doit etre update dans les autres fonctions pour pas devoir la rappeler et créer des erreurs
     }
 
-    public static String[][] updategrid(String[][] grid, HashMap posblock) {//pas commencer
+    public static String[][] updategrid(String[][] grid, HashMap posblock, boolean rotate, boolean cangoright, boolean cangoleft) {//pas fini du tout
+        switch (userinput()) {
+            case 'r':
+                if (cangoright) {
+                    //faire en sorte qu'il va a droite
+                }
+                break;
+            case 'l':
+                if (cangoleft) {
+                    //faire en sorte qu'il va a gauche
+                }
+                break;
+            case 'o':
+                if (rotate) {
+                    //faire en sorte qu'il rotate
+                }
+                break;
+            case 'n':
+                //juste passer  
+                break;
+        }
         return grid;
     }//fonction qui descend le block fonction timer(chaque seconde) + fonction userinput(bouge le block si user clicker ou le fait rotate)
 
@@ -108,18 +128,23 @@ class V2 {
         }, start_repeat, start_repeat);
     }
 
-    public static HashMap userinput() {//fini
+    public static char userinput() {//fini
         Scanner usrinput = new Scanner(System.in);
-        HashMap input = new HashMap<>();
+        char input;
         if (usrinput.equals("d")) {
-            input.put("right", true);
+            input = 'r';
         } else if (usrinput.equals("q")) {
-            input.put("left", true);
-        } else if (usrinput.equals("s") || usrinput.equals("z")) {
-            input.put("rotate", true);
+            input = 'l';
+        } else if (usrinput.equals("s") || usrinput.equals("z")) {//rotate
+            input = 'o';
         } else {
-            input.put("noinput", false);
+            input = 'n';
         }
         return input;
+    }
+
+    public static boolean canrotate(HashMap posoftheblock, String[][] grid) {
+        //le code si j'arrive a passer les arguments
+        return false;
     }
 }
