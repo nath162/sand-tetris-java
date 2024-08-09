@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Map;
 
 class V2 {
 
@@ -62,13 +63,22 @@ class V2 {
 
     public static boolean dowanttoplay() {//fini
         Scanner asktoplay = new Scanner(System.in);
+        System.err.println("do you want to play ?");
         boolean play = !asktoplay.equals("n");
+        asktoplay.close();
         return play;
     }
 
-    public static boolean isblockblocked(HashMap posoftheblock) {//pas fini, mais il faut la fonction pos of the block
+    public static boolean isblockblocked(HashMap posoftheblock, String[][] grid) {//pas fini, mais il faut la fonction pos of the block
         boolean blockblocked = false;
-        //savoir si il peut aller en bas a droite ou a gauche
+        int[][] posofchar = null;
+        for (Object i : posoftheblock.entrySet()) {
+            posofchar[0][0] = (int) i;
+            posofchar[1][0] = ((int) posoftheblock.get(i)) - 1;
+            if (grid[posofchar[0][0]][posofchar[1][0]] != "*") {
+                blockblocked = true;
+            }
+        }
         return blockblocked;
     }
 
@@ -93,16 +103,23 @@ class V2 {
         return posblock; //ne doit etre appeler que a l'apparition du block et puis doit etre update dans les autres fonctions pour pas devoir la rappeler et créer des erreurs
     }
 
-    public static String[][] updategrid(String[][] grid, HashMap posblock, boolean rotate, boolean cangoright, boolean cangoleft) {//pas fini du tout
+    public static void updategrid(String[][] grid, HashMap posblock, boolean rotate, boolean cangoright, boolean cangoleft) {//pas fini du tout
+        //fonction qui descend le block fonction timer(chaque seconde) + fonction userinput(bouge le block si user clicker ou le fait rotate)
         switch (userinput()) {
             case 'r':
                 if (cangoright) {
-                    //faire en sorte qu'il va a droite
+                    for (Map.Entry<Integer, Integer> entry : posblock.entrySet()) {
+                        //pos block n'a pas été passer en argument c'est pour sa que sa retourne faux
+                        entry.setValue(entry.getValue() + 1);
+                    }
                 }
                 break;
             case 'l':
                 if (cangoleft) {
-                    //faire en sorte qu'il va a gauche
+                    for (Map.Entry<Integer, Integer> entry : posblock.entrySet()) {
+                        //pos block n'a pas été passer en argument c'est pour sa que sa retourne faux
+                        entry.setValue(entry.getValue() - 1);
+                    }
                 }
                 break;
             case 'o':
@@ -114,8 +131,10 @@ class V2 {
                 //juste passer  
                 break;
         }
-        return grid;
-    }//fonction qui descend le block fonction timer(chaque seconde) + fonction userinput(bouge le block si user clicker ou le fait rotate)
+        //puis update la grid
+        //et finalement la display
+        displaygid(grid);
+    }
 
     public static void executeeverysecond() {//pas fini
         Timer timer = new Timer();
@@ -139,6 +158,7 @@ class V2 {
             input = 'o';
         } else {
             input = 'n';
+            usrinput.close();
         }
         return input;
     }
@@ -146,5 +166,19 @@ class V2 {
     public static boolean canrotate(HashMap posoftheblock, String[][] grid) {
         //le code si j'arrive a passer les arguments
         return false;
+    }
+
+    public static void displaygid(String[][] grid) {
+        int pre = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (pre != i) {
+                    System.out.println(grid[i][j]);
+                } else {
+                    System.out.print(grid[i][j]);
+                }
+                pre = i;
+            }
+        }
     }
 }
