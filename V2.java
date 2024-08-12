@@ -73,8 +73,8 @@ class V2 {
         boolean blockblocked = false;
         int[][] posofchar = null;
         for (Object i : posoftheblock.entrySet()) {
-            posofchar[0][0] = (int) i;
-            posofchar[1][0] = ((int) posoftheblock.get(i)) - 1;
+            posofchar[0][0] = (int) i - 1;
+            posofchar[1][0] = ((int) posoftheblock.get(i));
             if (grid[posofchar[0][0]][posofchar[1][0]] != "*") {
                 blockblocked = true;
             }
@@ -91,7 +91,7 @@ class V2 {
         return grid;
     }
 
-    public static HashMap posoftheblock(String[][] grid) {//fini
+    public static HashMap posoftheblock(String[][] grid) {//risque de bug
         HashMap posblock = new HashMap<>();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
@@ -103,7 +103,7 @@ class V2 {
         return posblock; //ne doit etre appeler que a l'apparition du block et puis doit etre update dans les autres fonctions pour pas devoir la rappeler et créer des erreurs
     }
 
-    public static void updategrid(String[][] grid, HashMap posblock, boolean rotate, boolean cangoright, boolean cangoleft) {//pas fini du tout
+    public static void updategrid(String[][] grid, HashMap posblock, boolean rotate, HashMap cangoleftorright) {//pas fini du tout
         //fonction qui descend le block fonction timer(chaque seconde) + fonction userinput(bouge le block si user clicker ou le fait rotate)
         switch (userinput()) {
             case 'r':
@@ -132,6 +132,9 @@ class V2 {
                 break;
         }
         //puis update la grid
+        for (Object i : posblock.entrySet()) {
+            grid[(int) i][(int) posblock.get(i)] = "+";
+        }
         //et finalement la display
         displaygid(grid);
     }
@@ -163,8 +166,40 @@ class V2 {
         return input;
     }
 
-    public static boolean canrotate(HashMap posoftheblock, String[][] grid) {
-        //le code si j'arrive a passer les arguments
+    public static boolean canrotate(HashMap posoftheblock, String[][] grid) {//manque plus que checker les alentours du block
+        /*
+        faire en sorte que le block soit une string 2 dimension pour pouvoir trouver le point du milieu du bloque 3*3 de collision puis
+        regarder a partir des positions dans la hasmap pos of the block ou est le milieu et si le block sont dispo
+         */
+        String[][] block = {{}, {}};
+        int temp = 0;
+        int count = 0;
+        int supcount = 0;
+        for (Object i : posoftheblock.entrySet()) {
+            if (temp != (int) posoftheblock.get(i) && temp != 0) {
+                temp += 1;
+                supcount = count;
+            }
+            block[0 + temp][0 + count - supcount] = "+";
+            count += 1;
+            temp = (int) posoftheblock.get(i);
+        }
+        int mid = 0;
+        int mid2 = 0;
+        if (block.length > 2) {
+            mid = block.length / 2;
+        } else {
+            mid = 0;
+        }
+        if (block[1].length > 2) {
+            mid2 = block[1].length / 2;
+        } else {
+            mid2 = 0;
+        }
+        for (Object i : posoftheblock.entrySet()) {
+            int posmidy = (int) i + mid2;
+            int posmidx = (int) posoftheblock.get(i) + mid;
+        }
         return false;
     }
 
@@ -180,5 +215,22 @@ class V2 {
                 pre = i;
             }
         }
+    }
+
+    public HashMap checkleftandright(String[][] grid, HashMap posofblock) {
+        HashMap cangowere = new HashMap<>();
+        for (Object i : posofblock.entrySet()) {
+            if (grid[(int) i][(int) posofblock.get(i) + 1] != "*") {
+                cangowere.put("cangoright", false);
+            } else {
+                cangowere.put("cangoright", true);
+            }
+            if (grid[(int) i][(int) posofblock.get(i) - 1] != "*") {
+                cangowere.put("cangoleft", false);
+            } else {
+                cangowere.put("cangoleft", true);
+            }
+        }
+        return cangowere;
     }
 }
