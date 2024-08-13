@@ -103,11 +103,11 @@ class V2 {
         return posblock; //ne doit etre appeler que a l'apparition du block et puis doit etre update dans les autres fonctions pour pas devoir la rappeler et créer des erreurs
     }
 
-    public static void updategrid(String[][] grid, HashMap posblock, boolean rotate, HashMap cangoleftorright) {//pas fini du tout
+    public static void updategrid(String[][] grid, HashMap posblock, boolean rotate, HashMap cangoleftorright, HashMap cangoleftright) {//pas fini du tout
         //fonction qui descend le block fonction timer(chaque seconde) + fonction userinput(bouge le block si user clicker ou le fait rotate)
         switch (userinput()) {
             case 'r':
-                if (cangoright) {
+                if (cangoleftright.get("cangoright").equals(true)) {
                     for (Map.Entry<Integer, Integer> entry : posblock.entrySet()) {
                         //pos block n'a pas été passer en argument c'est pour sa que sa retourne faux
                         entry.setValue(entry.getValue() + 1);
@@ -115,7 +115,7 @@ class V2 {
                 }
                 break;
             case 'l':
-                if (cangoleft) {
+                if (cangoleftright.get("cangoleft").equals(true)) {
                     for (Map.Entry<Integer, Integer> entry : posblock.entrySet()) {
                         //pos block n'a pas été passer en argument c'est pour sa que sa retourne faux
                         entry.setValue(entry.getValue() - 1);
@@ -123,7 +123,7 @@ class V2 {
                 }
                 break;
             case 'o':
-                if (rotate) {
+                if (canrotate(posblock, grid)) {
                     //faire en sorte qu'il rotate
                 }
                 break;
@@ -200,6 +200,24 @@ class V2 {
             int posmidy = (int) i + mid2;
             int posmidx = (int) posoftheblock.get(i) + mid;
         }
+        if (grid[posmidy + 1][posmidx].equals("*") || posoftheblock.containsKey(posmidy + 1) && posoftheblock.containsValue(posmidx)) {//en haut
+            if (grid[posmidy + 1][posmidx + 1].equals("*") || posoftheblock.containsKey(posmidy + 1) && posoftheblock.containsValue(posmidx + 1)) {//haut droite
+                if (grid[posmidy][posmidx + 1].equals("*") || posoftheblock.containsKey(posmidy) && posoftheblock.containsValue(posmidx + 1)) {//milieu droite
+                    if (grid[posmidy - 1][posmidx + 1].equals("*") || posoftheblock.containsKey(posmidy - 1) && posoftheblock.containsValue(posmidx + 1)) {//bas droite
+                        if (grid[posmidy - 1][posmidx].equals("*") || posoftheblock.containsKey(posmidy - 1) && posoftheblock.containsValue(posmidx)) {//bas milieu
+                            if (grid[posmidy - 1][posmidx - 1].equals("*") || posoftheblock.containsKey(posmidy - 1) && posoftheblock.containsValue(posmidx - 1)) {
+                                ///bas gauche
+                                if (grid[posmidy][posmidx - 1].equals("*") || posoftheblock.containsKey(posmidy) && posoftheblock.containsValue(posmidx - 1)) {//milieu gauche
+                                    if (grid[posmidy + 1][posmidx - 1].equals("*") || posoftheblock.containsKey(posmidy + 1) && posoftheblock.containsValue(posmidx - 1)) {//haut gauche
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -232,5 +250,26 @@ class V2 {
             }
         }
         return cangowere;
+    }
+
+    public static void destroylines(String[][] grid) {//probleme les elements en haut ne descende pas ducoup aprés que la ligne soit détruite
+        int pre = 0;
+        boolean destroyline = true;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; i < grid[i].length; j++) {
+                if (pre != i) {
+                    pre = i;
+                    if (destroyline) {
+                        for (int l = 0; l < grid[i].length; l++) {
+                            grid[i][l] = "*";
+                        }
+                    }
+                    destroyline = true;
+                }
+                if (grid[i][j].equals("*")) {
+                    destroyline = false;
+                }
+            }
+        }
     }
 }
