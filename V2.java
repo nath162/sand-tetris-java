@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import java.util.Map;
 
 class V2 {
-
+    //a debuger
     public static void gameloop() {//fonction qui appellra toute les autres fonction et c'est le bordèle
         creategrid();
         System.out.println("to quit press 'n'");
@@ -251,7 +251,7 @@ class V2 {
         }
         return cangowere;
     }
-
+    //a debuger
     public static void destroylines(String[][] grid) {//probleme les elements en haut ne descende pas ducoup aprés que la ligne soit détruite
         int pre = 0;
         boolean destroyline = true;
