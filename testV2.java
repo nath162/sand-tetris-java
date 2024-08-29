@@ -1,17 +1,17 @@
-import static org.junit.Assert.assertFalse;
-
 import java.util.Scanner;
 
-import org.junit.*;
-public class testV2 {
-    @Test
-    public void testdowanttoplay(){
-        assertFalse(dowanttoplay());
+
+public class testV2{
+    public static void main(String[] args){
+        System.out.println(dowanttoplay());
     }
 
-    private boolean dowanttoplay() {
+    private static boolean dowanttoplay() {
         Scanner asktoplay = new Scanner(System.in);
         System.err.println("do you want to play ?");
+        while(asktoplay.equals(null)){
+            System.err.println("do you want to play ?");
+        }
         boolean play = !asktoplay.equals("n");
         asktoplay.close();
         return play;
