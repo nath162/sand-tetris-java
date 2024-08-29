@@ -64,7 +64,8 @@ class V2 {
     public static boolean dowanttoplay() {//fini
         Scanner asktoplay = new Scanner(System.in);
         System.err.println("do you want to play ?");
-        boolean play = !asktoplay.equals("n");
+        String answer = asktoplay.nextLine();
+        boolean play = !answer.equals("n");
         asktoplay.close();
         return play;
     }

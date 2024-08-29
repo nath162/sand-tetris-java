@@ -1,17 +1,46 @@
-import java.util.Scanner;
-
+import java.util.HashMap;
 
 public class testV2{
     public static void main(String[] args){
-        System.out.println(dowanttoplay());
+        System.out.println(creategrid());
+        System.out.println(chooseblock(createblockHashMap()));
     }
-
-    private static boolean dowanttoplay() {
-        Scanner asktoplay = new Scanner(System.in);
-        System.err.println("do you want to play ?");
-        String answer = asktoplay.nextLine();
-        boolean play = !answer.equals("n");
-        asktoplay.close();
-        return play;
+    public static String[][] creategrid() {//fini
+        String[][] grid = {
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}};
+        return grid;
+    }
+    public static HashMap<Integer, String[][]> createblockHashMap() {//fini 
+        HashMap<Integer, String[][]> blocks = new HashMap<>();
+        blocks.put(0, new String[][]{{"+", "+", "+", "+"}});
+        blocks.put(1, new String[][]{{"+", "*", "*"}, {"+", "+", "+"}});
+        blocks.put(2, new String[][]{{"*", "*", "+"}, {"+", "+", "+"}});
+        blocks.put(3, new String[][]{{"+", "+"}, {"+", "+"}});
+        blocks.put(4, new String[][]{{"+", "+", "*"}, {"*", "+", "+"}});
+        blocks.put(5, new String[][]{{"*", "+", "*"}, {"+", "+", "+"}});
+        blocks.put(6, new String[][]{{"*", "+", "+"}, {"+", "+", "*"}});
+        return blocks;
+    }
+        public static String[][] chooseblock(HashMap<Integer, String[][]> blockshashmap) {//fini
+        String[][] choosenblock = blockshashmap.get((int) (Math.random() * 8));
+        return choosenblock;
     }
 }
