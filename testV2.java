@@ -11,7 +11,7 @@ public class testV2{
             {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
             {"-", "*", "*", "*", "+", "+", "+", "*", "*", "*", "*", "-"},
             {"-", "*", "*", "*", "+", "*", "*", "*", "*", "*", "*", "-"},
-            {"-", "+", "+", "+", "+", "+", "+", "*", "*", "*", "*", "-"},
+            {"-", "+", "+", "+", "*", "*", "*", "*", "*", "*", "*", "-"},
             {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
             {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
             {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
@@ -27,24 +27,38 @@ public class testV2{
             {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}};
         return grid;
     }
-    public static boolean isblockblocked(HashMap posoftheblock, String[][] grid) {//pas fini, mais il faut la fonction pos of the block
+    public static boolean isblockblocked(HashMap<Integer,int[]> posoftheblock, String[][] grid) {//pas fini, mais il faut la fonction pos of the block
         boolean blockblocked = false;
-        int[][] posofchar = null;
-        for (Object i : posoftheblock.entrySet()) {
-            posofchar[0][0] = (int) i - 1;
-            posofchar[1][0] = ((int) posoftheblock.get(i));
-            if (grid[posofchar[0][0]][posofchar[1][0]] != "*") {
-                blockblocked = true;
+        for(int[] i : posoftheblock.values()){//i est l'objet avec la key,value
+            if(grid[i[0]+1][i[1]].equals("+") || grid[i[0]+1][i[1]].equals("-")){
+                for(int[] j : posoftheblock.values()){
+                    if(j[0] == i[0] +1){
+                        break;
+                    }
+                    else{
+                        blockblocked = true;
+                    }
+                }
+            }
+            else{
+                continue;
             }
         }
         return blockblocked;
     }
     public static HashMap posoftheblock(String[][] grid) {//risque de bug
+        int[] listuniquekeys = {0,1,2,3};
+        int count = 0;//pointer pour la liste qui sert a avoir des clés unique pour les pos de block
         HashMap posblock = new HashMap<>();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                if (grid[i][j].equals("+")) {
-                    posblock.put(i, j);
+                if (grid[i][j].equals("+") && count < listuniquekeys.length) {
+                    int[] possingleblock = {i,j};// i ou j ne peuvent pas étre une key car plusieur blocke peuvent avoir le meme i ou j
+                    posblock.put(listuniquekeys[count],possingleblock);
+                    count+=1;
+                }
+                else{
+                    continue;
                 }
             }
         }
