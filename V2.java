@@ -93,11 +93,18 @@ class V2 {
     }
 
     public static HashMap posoftheblock(String[][] grid) {//risque de bug
+        int[] listuniquekeys = {0,1,2,3};
+        int count = 0;//pointer pour la liste qui sert a avoir des clés unique pour les pos de block
         HashMap posblock = new HashMap<>();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                if (grid[i][j].equals("+")) {
-                    posblock.put(i, j);
+                if (grid[i][j].equals("+") && count < listuniquekeys.length) {
+                    int[] possingleblock = {i,j};// i ou j ne peuvent pas étre une key car plusieur blocke peuvent avoir le meme i ou j
+                    posblock.put(listuniquekeys[count],possingleblock);
+                    count+=1;
+                }
+                else{
+                    continue;
                 }
             }
         }

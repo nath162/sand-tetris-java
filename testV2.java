@@ -32,16 +32,14 @@ public class testV2{
         for(int[] i : posoftheblock.values()){//i est l'objet avec la key,value
             if(grid[i[0]+1][i[1]].equals("+") || grid[i[0]+1][i[1]].equals("-")){
                 for(int[] j : posoftheblock.values()){
-                    if(j[0] == i[0] +1){
+                    if(!(j[0] == i[0]+1) && !(j[1] == i[1])){
+                        blockblocked = true;
                         break;
                     }
                     else{
-                        blockblocked = true;
+                        blockblocked = false;
                     }
                 }
-            }
-            else{
-                continue;
             }
         }
         return blockblocked;
