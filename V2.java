@@ -116,7 +116,7 @@ class V2 {
         }
         return posblock; //ne doit etre appeler que a l'apparition du block et puis doit etre update dans les autres fonctions pour pas devoir la rappeler et créer des erreurs
     }
-
+    //--------------------partie non test en bas----------------------------------------------------------
     public static void updategrid(String[][] grid, HashMap posblock, boolean rotate, HashMap cangoleftorright, HashMap cangoleftright) {//pas fini du tout
         //fonction qui descend le block fonction timer(chaque seconde) + fonction userinput(bouge le block si user clicker ou le fait rotate)
         switch (userinput()) {
@@ -234,7 +234,7 @@ class V2 {
         }
         return false;
     }
-
+//cette fonction a été test(displaygrid)
     public static void displaygid(String[][] grid) {
         int pre = 0;
         for (int i = 0; i < grid.length; i++) {
