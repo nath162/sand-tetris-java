@@ -70,14 +70,20 @@ class V2 {
         return play;
     }
 
-    public static boolean isblockblocked(HashMap posoftheblock, String[][] grid) {//pas fini, mais il faut la fonction pos of the block
+    public static boolean isblockblocked(HashMap<Integer,int[]> posoftheblock, String[][] grid) {//pas fini, mais il faut la fonction pos of the block
         boolean blockblocked = false;
-        int[][] posofchar = null;
-        for (Object i : posoftheblock.entrySet()) {
-            posofchar[0][0] = (int) i - 1;
-            posofchar[1][0] = ((int) posoftheblock.get(i));
-            if (grid[posofchar[0][0]][posofchar[1][0]] != "*") {
-                blockblocked = true;
+        for(int[] i : posoftheblock.values()){//i est l'objet avec la key,value
+            if(grid[i[0]+1][i[1]].equals("+") || grid[i[0]+1][i[1]].equals("-")){
+                blockblocked =true;
+                for(int[] j : posoftheblock.values()){
+                    if((j[0] == i[0]+1) && (j[1] == i[1])){
+                        blockblocked = false;
+                        break;
+                    }
+                    else{
+                        blockblocked = true;
+                    }
+                }
             }
         }
         return blockblocked;
