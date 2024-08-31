@@ -31,13 +31,14 @@ public class testV2{
         boolean blockblocked = false;
         for(int[] i : posoftheblock.values()){//i est l'objet avec la key,value
             if(grid[i[0]+1][i[1]].equals("+") || grid[i[0]+1][i[1]].equals("-")){
+                blockblocked =true;
                 for(int[] j : posoftheblock.values()){
-                    if(!(j[0] == i[0]+1) && !(j[1] == i[1])){
-                        blockblocked = true;
+                    if((j[0] == i[0]+1) && (j[1] == i[1])){
+                        blockblocked = false;
                         break;
                     }
                     else{
-                        blockblocked = false;
+                        blockblocked = true;
                     }
                 }
             }
