@@ -1,17 +1,48 @@
-import java.util.TimerTask;
-import java.util.Timer;
 public class testV2{
     public static void main(String[] args){
-        
+        destroylines(creategrid());
     }
-    public static void executeeverysecond() {//pas fini
-        Timer timer = new Timer();
-        int start_repeat = 1000;
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                //updategrid(grid, posblock);
+    public static String[][] creategrid() {//fini
+        String[][] grid = {
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"},
+            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}};
+        return grid;
+    }
+    public static void destroylines(String[][] grid) {//probleme les elements en haut ne descende pas ducoup aprés que la ligne soit détruite
+        int pre = 0;
+        boolean destroyline = true;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; i < grid[i].length; j++) {
+                if (pre != i) {
+                    pre = i;
+                    if (destroyline) {
+                        for (int l = 0; l < grid[i].length; l++) {
+                            grid[i][l] = "*";
+                        }
+                    }
+                    destroyline = true;
+                }
+                if (grid[i][j].equals("*")) {
+                    destroyline = false;
+                }
             }
-        }, start_repeat, start_repeat);
+        }
     }
 }

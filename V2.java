@@ -152,7 +152,7 @@ class V2 {
         //et finalement la display
         displaygid(grid);
     }
-
+    //a été test
     public static void executeeverysecond() {//pas fini
         Timer timer = new Timer();
         int start_repeat = 1000;
