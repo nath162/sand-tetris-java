@@ -88,11 +88,11 @@ class V2 {
         }
         return blockblocked;
     }
-
+    //a été testé
     public static String[][] makeblockappear(String[][] grid, String[][] block) {//fini
         for (int i = 0; i < block.length; i++) {
-            for (int j = 4; j < block[i].length; j++) {
-                grid[i][j] = block[i][j - 4];
+            for (int j = 0; j < block[i].length; j++) {
+                grid[i][j+4] = block[i][j];
             }
         }
         return grid;
@@ -236,11 +236,15 @@ class V2 {
     }
 //cette fonction a été test(displaygrid)
     public static void displaygid(String[][] grid) {
+        int count = 0;
         int pre = 0;
         for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                if (pre != i) {
-                    System.out.println(grid[i][j]);
+            for (int j = 1; j < grid[i].length; j++) {
+                if (pre != i || count ==0) {
+                    count +=1;
+                    System.out.println(" ");
+                    System.out.print("-");
+                    System.out.print(grid[i][j]);
                 } else {
                     System.out.print(grid[i][j]);
                 }
@@ -248,6 +252,7 @@ class V2 {
             }
         }
     }
+
 
     public HashMap checkleftandright(String[][] grid, HashMap posofblock) {
         HashMap cangowere = new HashMap<>();
