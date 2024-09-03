@@ -1,9 +1,9 @@
-
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Map;
+
 
 class V2 {
     //a debuger
@@ -270,25 +270,31 @@ class V2 {
         }
         return cangowere;
     }
-    //a debuger
-    public static void destroylines(String[][] grid) {//probleme les elements en haut ne descende pas ducoup aprés que la ligne soit détruite
-        int pre = 0;
-        boolean destroyline = true;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; i < grid[i].length; j++) {
-                if (pre != i) {
-                    pre = i;
-                    if (destroyline) {
-                        for (int l = 0; l < grid[i].length; l++) {
-                            grid[i][l] = "*";
+    //fini de debuger
+    public static String[][] destroylines(String[][] grid) {//probleme les elements en haut ne descende pas ducoup aprés que la ligne soit détruite
+        int destroy = 0;
+        String[][] newarray = {{"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"}};
+        for(int i=0;i < grid.length;i++){
+            for(int j = 0;j < grid[i].length;j++){
+                if(grid[i][j] == "+"){
+                    destroy++;
+                    if(destroy == 10){
+                        for(int h=0;h < grid.length;h++){
+                            if(h == 0){
+                                grid[0] = new String[]{"-", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "-"};
+                            }
+                            else if(h == i+1){
+                                continue;
+                            }
+                            else{
+                                grid[h] = grid[h-1];
+                            }
                         }
                     }
-                    destroyline = true;
-                }
-                if (grid[i][j].equals("*")) {
-                    destroyline = false;
                 }
             }
+            destroy = 0;
         }
+            return grid;
     }
 }
